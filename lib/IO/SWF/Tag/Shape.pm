@@ -37,20 +37,20 @@ sub parseContent {
     my %opts = ('tagCode' => $tagCode, 'isMorph' => $isMorph);
 
     if (!$isMorph) {
-        # 描画スタイル
+        # style
         $self->_shapeBounds(IO::SWF::Type::RECT::parse($reader));
         $self->_fillStyles(IO::SWF::Type::FILLSTYLEARRAY::parse($reader, \%opts));
         $self->_lineStyles(IO::SWF::Type::LINESTYLEARRAY::parse($reader, \%opts));
-        # 描画枠
+        # shape
         $self->_shapeRecords(IO::SWF::Type::SHAPE::parse($reader, \%opts));
     } else {
         $self->_startBounds(IO::SWF::Type::RECT::parse($reader));
         $self->_endBounds(IO::SWF::Type::RECT::parse($reader));
         $self->_offset($reader->getUI32LE());
-        # 描画スタイル
+        # style
         $self->_morphFillStyles(IO::SWF::Type::FILLSTYLEARRAY::parse($reader, \%opts));
         $self->_morphLineStyles(IO::SWF::Type::LINESTYLEARRAY::parse($reader, \%opts));
-        # 描画枠
+        # shape
         $self->_startEdge(IO::SWF::Type::SHAPE::parse($reader, \%opts));
         $self->_endEdge(IO::SWF::Type::SHAPE::parse($reader, \%opts));
     }
@@ -102,20 +102,20 @@ sub buildContent {
 
     if (!$isMorph) {
         IO::SWF::Type::RECT::build($writer, $self->_shapeBounds);
-        # 描画スタイル
+        # style
         IO::SWF::Type::FILLSTYLEARRAY::build($writer, $self->_fillStyles, \%opts);
         IO::SWF::Type::LINESTYLEARRAY::build($writer, $self->_lineStyles, \%opts);
-        # 描画枠
+        # shape
         $opts{'fillStyleCount'} = scalar(@{$self->_fillStyles});
         $opts{'lineStyleCount'} = scalar(@{$self->_lineStyles});
         IO::SWF::Type::SHAPE::build($writer, $self->_shapeRecords, \%opts);
     } else {
         IO::SWF::Type::RECT::build($writer, $self->_startBounds);
         IO::SWF::Type::RECT::build($writer, $self->_endBounds);
-        # 描画スタイル
+        # style
         IO::SWF::Type::FILLSTYLEARRAY::build($writer, $self->_morphFillStyles, \%opts);
         IO::SWF::Type::LINESTYLEARRAY::build($writer, $self->_morphLineStyles, \%opts);
-        # 描画枠
+        # shape
         $opts{'fillStyleCount'} = scalar(@{$self->_morphFillStyles});
         $opts{'lineStyleCount'} = scalar(@{$self->_morphLineStyles});
         IO::SWF::Type::SHAPE::build($writer, $self->_startEdge, \%opts);
@@ -168,16 +168,15 @@ sub deformeShapeRecordUnit_1 {
         $shapeRecord = @{$self->_shapeRecords}[$i];
         my ($diff_x, $diff_y, $distance_2, $distance_2_control, $distance_2_anchor);
         if ($shapeRecord->{'StraightFlag'} == 0) {
-            # 曲線に対する処理
+            # process for curve
             $diff_x = $shapeRecord->{'ControlX'} - $currentDrawingPositionX;
             $diff_y = $shapeRecord->{'ControlY'} - $currentDrawingPositionY;
             $distance_2_control = $diff_x * $diff_x + $diff_y * $diff_y;
             $diff_x = $shapeRecord->{'AnchorX'} - $currentDrawingPositionX;
             $diff_y = $shapeRecord->{'AnchorY'} - $currentDrawingPositionY;
             $distance_2_anchor = $diff_x * $diff_x + $diff_y * $diff_y;
-#                if (max($distance_2_control, $distance_2_anchor) > $threshold_2) {
             if (($distance_2_control +  $distance_2_anchor) > $threshold_2) {
-                # 何もしない
+                # nothing
                 $prevIndex = $i;
                 $prevDrawingPositionX = $currentDrawingPositionX;
                 $prevDrawingPositionY = $currentDrawingPositionY;
@@ -185,7 +184,7 @@ sub deformeShapeRecordUnit_1 {
                 $currentDrawingPositionY = $shapeRecord->{'AnchorY'};
                 next; # skip
             }
-            # 直線に変換する
+            # convert to straight
             $shapeRecord->{'StraightFlag'} = 1; # to Straight
             $shapeRecord->{'X'} = $shapeRecord->{'AnchorX'};
             $shapeRecord->{'Y'} = $shapeRecord->{'AnchorY'};
@@ -195,7 +194,7 @@ sub deformeShapeRecordUnit_1 {
             delete $shapeRecord->{'AnchorY'};
         }
         if (!$prevIndex) {
-            # 何もしない
+            # nothing
             $prevIndex = $i;
             $prevDrawingPositionX = $currentDrawingPositionX;
             $prevDrawingPositionY = $currentDrawingPositionY;
@@ -207,7 +206,7 @@ sub deformeShapeRecordUnit_1 {
         $diff_y = $shapeRecord->{'Y'} - $prevDrawingPositionY;
         $distance_2 = $diff_x * $diff_x + $diff_y * $diff_y;
         if ($distance_2 > $threshold_2) {
-            # 何もしない
+            # nothing
             $prevIndex = $i;
             $prevDrawingPositionX = $currentDrawingPositionX;
             $prevDrawingPositionY = $currentDrawingPositionY;
@@ -215,7 +214,7 @@ sub deformeShapeRecordUnit_1 {
             $currentDrawingPositionY = $shapeRecord->{'Y'};
             next; # skip
         }
-        # 前の直線にくっつける。
+        # joint to previous shape
         my $prevShapeRecord = @{$self->_shapeRecords}[$prevIndex];
         $prevShapeRecord->{'X'} = $shapeRecord->{'X'};
         $prevShapeRecord->{'Y'} = $shapeRecord->{'Y'};
@@ -240,7 +239,7 @@ sub deformeShapeRecordUnit_2_curve {
     for (my $i = $startIndex + 1 ;$i <= $endIndex; $i++) {
         $shapeRecord = @{$self->_shapeRecords}[$i];
         if ($shapeRecord->{'StraightFlag'} == 0) {
-        # 曲線に対する処理
+            # process for curve
             my $diff_x = $shapeRecord->{'ControlX'} - $currentDrawingPositionX;
             my $diff_y = $shapeRecord->{'ControlY'} - $currentDrawingPositionY;
             my $distance_2_control = $diff_x * $diff_x + $diff_y * $diff_y;
@@ -248,12 +247,12 @@ sub deformeShapeRecordUnit_2_curve {
             $diff_y = $shapeRecord->{'AnchorY'} - $currentDrawingPositionY;
             my $distance_2_anchor = $diff_x * $diff_x + $diff_y * $diff_y;
             if (($distance_2_control +  $distance_2_anchor) > $threshold_2) {
-                # 何もしない
+                # nothing
                 $currentDrawingPositionX = $shapeRecord->{'AnchorX'};
                 $currentDrawingPositionY = $shapeRecord->{'AnchorY'};
                 next; # skip
             }
-            # 直線に変換する
+            # convert to straight
             $shapeRecord->{'StraightFlag'} = 1; # to Straight
             $shapeRecord->{'X'} = $shapeRecord->{'AnchorX'};
             $shapeRecord->{'Y'} = $shapeRecord->{'AnchorY'};
@@ -307,16 +306,14 @@ sub deformeShapeRecordUnit_2_line {
     my $deforme_number = 0;
     foreach my $i (@distance_list_short) {
         if ($distance_table_all[$i] > $threshold_2) {
-            next; # 一定距離以上の線分は処理しない
+            next;
         }
         if (!defined ($distance_list_all[$i-1]) && !defined ($distance_list_all[$i+1])) {
-            # 隣の線分が吸収され済みor曲線の場合は処理しない
 
         }
         my $index_to_merge;
         if (!defined ($distance_list_all[$i-1])) {
             if (!defined ($distance_list_all[$i+1])) {
-                # 隣の線分が吸収されている場合は処理しない
                 next;           
             } else {
                 $index_to_merge = $i+1;
@@ -325,10 +322,9 @@ sub deformeShapeRecordUnit_2_line {
             if (!defined ($distance_list_all[$i+1])) {
                 $index_to_merge = $i-1;
             } else {
-                $index_to_merge = $i-1; # XXX 後で選択する処理を入れる
+                $index_to_merge = $i-1; # XXX
             }
         }
-        # line merge 処理
         $shapeRecord = @{$self->_shapeRecords}[$i];
         my $shapeRecord_toMerge = @{$self->_shapeRecords}[$index_to_merge];
         if ($i > $index_to_merge) {

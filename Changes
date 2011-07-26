@@ -4,3 +4,5 @@ Revision history for Perl extension IO.
 	- original version; created by h2xs 1.23 with options
 		-X -A IO
 
+0.02 Tue Jul 26 10:28:00 2011
+    - fix comment

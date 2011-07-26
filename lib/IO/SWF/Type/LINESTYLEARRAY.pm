@@ -17,7 +17,6 @@ sub parse {
     # LineStyle
     my $lineStyleCount = $reader->getUI8();
     if (($tagCode > 2) && ($lineStyleCount == 0xff)) {
-        # DefineShape2 以降は 0xffff サイズまで扱える
         $lineStyleCount = $reader->getUI16LE();
     }
     for (my $i = 0 ; $i < $lineStyleCount ; $i++) {

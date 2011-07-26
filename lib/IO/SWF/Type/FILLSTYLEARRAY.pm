@@ -17,7 +17,6 @@ sub parse {
     # FillStyle
     my $fillStyleCount = $reader->getUI8();
     if (($tagCode > 2) && ($fillStyleCount == 0xff)) {
-       # DefineShape2 以降は 0xffff サイズまで扱える
        $fillStyleCount = $reader->getUI16LE();
     }
     for (my $i = 0 ; $i < $fillStyleCount ; $i++) {

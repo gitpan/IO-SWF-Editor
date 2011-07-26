@@ -17,7 +17,6 @@ sub parse {
     my @shapeRecords = ();
 
     $reader->byteAlign();
-    # 描画スタイルを参照するインデックスのビット幅
     my $numFillBits = $reader->getUIBits(4);
     my $numLineBits = $reader->getUIBits(4);
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 our ( $VERSION );
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 use base 'IO::SWF';
 use IO::Bit;
