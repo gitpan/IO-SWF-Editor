@@ -4,10 +4,10 @@ use strict;
 use warnings;
 
 our ( $VERSION );
-$VERSION = '0.03_01';
+$VERSION = '0.03_02';
 
 use base 'IO::SWF';
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Tag::Shape;
 use IO::SWF::Tag::Action;
 use IO::SWF::Tag::Sprite;
@@ -92,7 +92,7 @@ sub rebuild {
 sub setCharacterId {
     my $self = shift;
     foreach my $tag (@{$self->_tags}) {
-        my $content_reader = IO::Bit->new();
+        my $content_reader = IO::SWF::Bit->new();
         $content_reader->input($tag->content);
         if (
             $tag->code == 6  || # DefineBits
@@ -117,7 +117,7 @@ sub setCharacterId {
 sub setReferenceId {
     my $self = shift;
     foreach my $tag (@{$self->_tags}) {
-        my $content_reader = IO::Bit->new();
+        my $content_reader = IO::SWF::Bit->new();
         $content_reader->input($tag->content);
         if ($tag->code == 4 || # 4:  // PlaceObject
             $tag->code == 5    # 5:  // RemoveObject

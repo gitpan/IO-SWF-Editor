@@ -1,6 +1,6 @@
 use Test::More tests => 45;
 BEGIN {
-    use_ok('IO::Bit');
+    use_ok('IO::SWF::Bit');
 }
 
 my $data_length = 10;
@@ -9,7 +9,7 @@ while(length($data) < 10) {
     $data .= chr(int(rand(255)));
 }
 
-my $bit = IO::Bit->new();
+my $bit = IO::SWF::Bit->new();
 
 $bit->input($data);
 
@@ -22,22 +22,28 @@ is($bit->_bit_offset, 1, 'setOffset - bit_offset');
 
 # getOffset
 $bit->setOffset(0, 0);
-is($bit->getOffset, (0, 0), 'getOffset - zero');
+my @offset;
+@offset = $bit->getOffset();
+is_deeply(\@offset, [0, 0], 'getOffset - zero');
 
 $bit->setOffset(2, 8);
-is($bit->getOffset, (2, 8), 'getOffset - among');
+@offset = $bit->getOffset();
+is_deeply(\@offset, [2, 8], 'getOffset - among');
 
 $bit->setOffset(length($data), 0);
-is($bit->getOffset, (length($data), 0), 'getOffset - last');
+@offset = $bit->getOffset();
+is_deeply(\@offset, [length($data), 0], 'getOffset - last');
 
 # incrementOffset
 $bit->setOffset(0, 0);
 $bit->incrementOffset(0, 12);
-is($bit->getOffset, (1, 4), 'incrementOffset - increment bit_offset');
+@offset = $bit->getOffset();
+is_deeply(\@offset, [1, 4], 'incrementOffset - increment bit_offset');
 
 $bit->setOffset(0, 0);
 $bit->incrementOffset(4, -12);
-is($bit->getOffset, (2, 4), 'incrementOffset - decrement bit_offset');
+@offset = $bit->getOffset();
+is_deeply(\@offset, [2, 4], 'incrementOffset - decrement bit_offset');
 
 # hasNextData
 $bit->setOffset(0, 0);
@@ -49,18 +55,21 @@ is($bit->hasNextData, 0, 'hasNextData - last');
 # byteAlign
 $bit->setOffset(2, 0);
 $bit->byteAlign();
-is($bit->getOffset, (2, 0), 'byteAlign - no align');
+@offset = $bit->getOffset();
+is_deeply(\@offset, [2, 0], 'byteAlign - no align');
 
 $bit->setOffset(2, 8);
 $bit->byteAlign();
-is($bit->getOffset, (3, 0), 'byteAlign - align');
+@offset = $bit->getOffset();
+is_deeply(\@offset, [3, 0], 'byteAlign - align');
 
 # put and get
 
 # putData
 $bit->input('');
 $bit->putData($data);
-is($bit->getOffset, (length($data), 0), 'putData - check offset');
+@offset = $bit->getOffset();
+is_deeply(\@offset, [length($data), 0], 'putData - check offset');
 
 # getData
 $bit->setOffset(0, 0);

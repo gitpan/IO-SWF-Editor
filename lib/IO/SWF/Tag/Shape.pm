@@ -5,7 +5,7 @@ use warnings;
 
 use base 'IO::SWF::Tag::Base';
 
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type::RECT;
 use IO::SWF::Type::FILLSTYLEARRAY;
 use IO::SWF::Type::LINESTYLEARRAY;
@@ -30,7 +30,7 @@ sub parseContent {
     my ($self, $tagCode, $content, $opts_href) = @_;
 
     my $isMorph = ($tagCode == 46 || $tagCode == 84) ? 1 : 0;
-    my $reader = IO::Bit->new();
+    my $reader = IO::SWF::Bit->new();
     $reader->input($content);
     $self->_shapeId($reader->getUI16LE());
 
@@ -94,7 +94,7 @@ sub buildContent {
     my %opts = ref($opts_href) ? %{$opts_href} : ();
 
     my $isMorph = ($tagCode == 46 || $tagCode == 84) ? 1 : 0;
-    my $writer = IO::Bit->new();
+    my $writer = IO::SWF::Bit->new();
     if (!exists($opts{'noShapeId'})) {
         $writer->putUI16LE($self->_shapeId);
     }

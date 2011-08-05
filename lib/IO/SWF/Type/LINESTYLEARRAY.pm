@@ -5,7 +5,7 @@ use warnings;
 
 use base 'IO::SWF::Type';
 
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type::LINESTYLE;
 
 sub parse {

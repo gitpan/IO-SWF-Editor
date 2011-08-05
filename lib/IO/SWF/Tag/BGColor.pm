@@ -5,7 +5,7 @@ use warnings;
 
 use base 'IO::SWF::Tag::Base';
 
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type::RGB;
 
 __PACKAGE__->mk_accessors( qw(
@@ -14,7 +14,7 @@ __PACKAGE__->mk_accessors( qw(
 
 sub parseContent {
     my ($self, $tagCode, $content, $opts_href) = @_;
-    my $reader = IO::Bit->new();
+    my $reader = IO::SWF::Bit->new();
     $reader->input($content);
     $self->_color(IO::SWF::Type::RGB::parse($reader));
 }
@@ -27,7 +27,7 @@ sub dumpContent {
 
 sub buildContent {
     my ($self, $tagCode, $opts_href) = @_;
-    my $writer = IO::Bit->new();
+    my $writer = IO::SWF::Bit->new();
     IO::SWF::Type::RGB::build($writer, $self->_color);
     return $writer->output();
 }

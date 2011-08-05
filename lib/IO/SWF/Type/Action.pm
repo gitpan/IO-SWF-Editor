@@ -5,7 +5,7 @@ use warnings;
 
 use base 'IO::SWF::Type';
 
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type::String;
 use IO::SWF::Type::Float;
 use IO::SWF::Type::Double;
@@ -191,7 +191,7 @@ sub parse {
             # 0x96: // ActionPush
             my $data = $reader->getData($length);
             my @values = ();
-            my $values_reader = IO::Bit->new();
+            my $values_reader = IO::SWF::Bit->new();
             $values_reader->input($data);
             while ($values_reader->hasNextData()) {
                 my %value = ();
@@ -328,7 +328,7 @@ sub build {
         }
         elsif ($code == 0x96) {
             # 0x96: // ActionPush
-            my $values_writer = IO::Bit->new();
+            my $values_writer = IO::SWF::Bit->new();
             foreach my $value (@{$action{'Values'}}) {
                 my $type = $value->{'Type'};
                 $values_writer->putUI8($type);

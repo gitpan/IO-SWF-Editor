@@ -6,7 +6,7 @@ use warnings;
 use base 'IO::SWF::Type';
 
 use List::Util;
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type::FILLSTYLEARRAY;
 use IO::SWF::Type::LINESTYLEARRAY;
 

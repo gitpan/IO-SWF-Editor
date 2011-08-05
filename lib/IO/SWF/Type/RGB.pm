@@ -5,7 +5,7 @@ use warnings;
 
 use base 'IO::SWF::Type';
 
-use IO::Bit;
+use IO::SWF::Bit;
 
 sub parse {
     my ($reader, $opts_href) = @_;

@@ -15,7 +15,7 @@ sub form {
 
 sub _form_26 {
     my ($self, $tag) = @_; # $tag : PlaceObject2
-    my $reader = IO::Bit->new();
+    my $reader = IO::SWF::Bit->new();
     $reader->input($tag->{'Content'});
     $tag->placeFlag($reader->getUI8());
     $tag->depth($reader->getUI16LE());

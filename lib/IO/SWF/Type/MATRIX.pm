@@ -5,7 +5,7 @@ use warnings;
 
 use base 'IO::SWF::Type';
 
-use IO::Bit;
+use IO::SWF::Bit;
 use List::Util;
 
 sub parse {

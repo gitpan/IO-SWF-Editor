@@ -1,4 +1,4 @@
-package IO::Bit;
+package IO::SWF::Bit;
 
 #
 # This module is transport from <http://openpear.org/package/IO_Bit>

@@ -9,3 +9,6 @@ Revision history for Perl extension IO.
 
 0.03_01 Tue Jul 26 10:35:00 2011
     - change to developer release
+
+0.03_02 Tue Aug 5 16:05:00 2011
+    - fix t

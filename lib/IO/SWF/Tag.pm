@@ -157,7 +157,7 @@ sub build {
     my $code = $self->code;
     my $content = $self->content;
     my $length = length($self->content);
-    my $writer = IO::Bit->new();
+    my $writer = IO::SWF::Bit->new();
     my $longFormat = 0;
     if ($code == 6  || # DefineBitsJPEG
         $code == 21 || # DefineBitsJPEG2

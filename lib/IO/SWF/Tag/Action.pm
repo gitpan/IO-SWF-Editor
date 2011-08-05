@@ -5,7 +5,7 @@ use warnings;
 
 use base 'IO::SWF::Tag::Base';
 
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type::Action;
 
 __PACKAGE__->mk_accessors( qw(
@@ -15,7 +15,7 @@ __PACKAGE__->mk_accessors( qw(
 
 sub parseContent {
     my ($self, $tagCode, $content, $opts_href) = @_;
-    my $reader = IO::Bit->new();
+    my $reader = IO::SWF::Bit->new();
     my @actions = ();
     $reader->input($content);
     if ($tagCode == 59) { # DoInitAction
@@ -45,7 +45,7 @@ sub dumpContent {
 
 sub buildContent {
     my ($self, $tagCode, $opts_href) = @_;
-    my $writer = IO::Bit->new();
+    my $writer = IO::SWF::Bit->new();
     if ($tagCode == 59) { # DoInitAction
         $writer->putUI16LE($self->_spriteId);
     }

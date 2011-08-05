@@ -3,7 +3,7 @@ package IO::SWF::Bitmap;
 use strict;
 use warnings;
 
-use IO::Bit;
+use IO::SWF::Bit;
 
 use constant {
     FORMAT_UNKNOWN => 0,

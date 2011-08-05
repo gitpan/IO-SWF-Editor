@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use base 'Class::Accessor::Fast';
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type::RECT;
 use IO::SWF::Tag;
 use Compress::Zlib;
@@ -45,7 +45,7 @@ sub _set_tag {
 
 sub parse {
     my ($self, $swfdata) = @_;
-    my $reader = IO::Bit->new();
+    my $reader = IO::SWF::Bit->new();
     $reader->input($swfdata);
     $self->_swfdata($swfdata);
     ## SWF Header ##
@@ -64,7 +64,7 @@ sub parse {
         my ($byte_offset, $dummy) = $reader->getOffset();
         $reader->setOffset(0, 0);
         $swfdata = $reader->getData($byte_offset) . $uncompressed_data;
-        $reader = IO::Bit->new();
+        $reader = IO::SWF::Bit->new();
         $reader->input($swfdata);
         $self->_swfdata($swfdata);
         $reader->setOffset($byte_offset, 0);
@@ -96,8 +96,8 @@ sub parse {
 
 sub build {
     my $self = shift;
-    my $writer_head = IO::Bit->new();
-    my $writer = IO::Bit->new();
+    my $writer_head = IO::SWF::Bit->new();
+    my $writer = IO::SWF::Bit->new();
 
     ## SWF Header ##
     $writer_head->putData($self->_headers->{'Signature'});
@@ -137,7 +137,7 @@ sub dump {
     my %opts = ref($opts_href) ? %{$opts_href} : ();
     my $bitio;
     if (defined $opts{'hexdump'}) {
-        $bitio = IO::Bit->new();
+        $bitio = IO::SWF::Bit->new();
         $bitio->input($self->_swfdata);
     }
     ## SWF Header ##

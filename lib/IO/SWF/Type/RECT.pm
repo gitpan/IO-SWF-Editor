@@ -3,7 +3,7 @@ package IO::SWF::Type::RECT;
 use strict;
 use warnings;
 
-use IO::Bit;
+use IO::SWF::Bit;
 use IO::SWF::Type;
 use List::Util;
 

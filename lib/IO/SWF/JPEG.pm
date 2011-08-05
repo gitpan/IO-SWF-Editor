@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Class::Accessor::Fast';
 
-use IO::Bit;
+use IO::SWF::Bit;
 use Digest::MD5;
 
 __PACKAGE__->mk_accessors( qw(
@@ -56,7 +56,7 @@ sub input {
 
 sub _splitChunk {
     my $self = shift;
-    my $bitin = IO::Bit->new();
+    my $bitin = IO::SWF::Bit->new();
     $bitin->input($self->_jpegdata);
     my $marker1;
     my @jpegChunk = ();
@@ -113,7 +113,7 @@ sub getImageData {
     if (!$self->_jpegChunk || scalar(@{$self->_jpegChunk}) == 0) {
         $self->_splitChunk();
     }
-    my $bitout = IO::Bit->new();
+    my $bitout = IO::SWF::Bit->new();
     foreach my $chunk (@{$self->_jpegChunk}) {
         my $marker = $chunk->{'marker'};
         if (($marker == 0xDB) || ($marker == 0xC4)) {
@@ -140,7 +140,7 @@ sub getEncodingTables {
     if (!$self->_jpegChunk || scalar(@{$self->_jpegChunk}) == 0) {
         $self->_splitChunk();
     }
-    my $bitout = IO::Bit->new();
+    my $bitout = IO::SWF::Bit->new();
     $bitout->putUI8(0xFF);
     $bitout->putUI8(0xD8); # SOI;
     foreach my $chunk (@{$self->_jpegChunk}) {

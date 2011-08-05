@@ -32,10 +32,10 @@
       },
       "runtime" : {
          "requires" : {
-            "Image::Magick" : 0
+            "Image::Magick" : "v6.6.3"
          }
       }
    },
    "release_status" : "testing",
-   "version" : "0.03_01"
+   "version" : "0.03_02"
 }
