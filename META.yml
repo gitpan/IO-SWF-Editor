@@ -1,22 +1,11 @@
----
-abstract: 'Parse and edit SWF binary by Perl.'
-author:
-  - 'Seiji Harada <liptontea2k@gmail.com>'
-build_requires:
-  ExtUtils::MakeMaker: 0
-configure_requires:
-  ExtUtils::MakeMaker: 0
-dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.58, CPAN::Meta::Converter version 2.110930001'
-license: unknown
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
-name: IO-SWF-Editor
-no_index:
-  directory:
-    - t
-    - inc
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         IO-SWF-Editor
+version:      0.04_01
+version_from: lib/IO/SWF/Editor.pm
+installdirs:  site
 requires:
-  Image::Magick: v6.6.3
-version: 0.03_02
+    Image::Magick:                 6.6.3
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.30

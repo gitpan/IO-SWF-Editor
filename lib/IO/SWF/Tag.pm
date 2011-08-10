@@ -39,9 +39,9 @@ sub getTagInfo {
 #         3 => {'name' => 'FreeCharacter'}, # ???
          4 => {'name' => 'PlaceObject', 'klass' => 'Place'},
          5 => {'name' => 'RemoveObject'},
-         6 => {'name' => 'DefineBitsJPEG'},
+         6 => {'name' => 'DefineBits', 'klass' => 'Jpeg'},
          7 => {'name' => 'DefineButton'},
-         8 => {'name' => 'JPEGTables'},
+         8 => {'name' => 'JPEGTables', 'klass' => 'Jpeg'},
          9 => {'name' => 'SetBackgroundColor', 'klass' => 'BGColor'},
         10 => {'name' => 'DefineFont'},
         11 => {'name' => 'DefineText'},
@@ -53,8 +53,8 @@ sub getTagInfo {
         17 => {'name' => 'DefineButtonSound'},
         18 => {'name' => 'SoundStreamHead'},
         19 => {'name' => 'SoundStreamBlock'},
-        20 => {'name' => 'DefineBitsLossless'},
-        21 => {'name' => 'DefineBitsJPEG2'},
+        20 => {'name' => 'DefineBitsLossless', 'klass' => 'Lossless'},
+        21 => {'name' => 'DefineBitsJPEG2', 'klass' => 'Jpeg'},
         22 => {'name' => 'DefineShape2', 'klass' => 'Shape'},
         24 => {'name' => 'Protect'},
         # 25 missing
@@ -65,8 +65,8 @@ sub getTagInfo {
         32 => {'name' => 'DefineShape3', 'klass' => 'Shape'},
         33 => {'name' => 'DefineText2'},
         34 => {'name' => 'DefineButton2'},
-        35 => {'name' => 'DefineBitsJPEG3'},
-        36 => {'name' => 'DefineBitsLossless2'},
+        35 => {'name' => 'DefineBitsJPEG3', 'klass' => 'Jpeg'},
+        36 => {'name' => 'DefineBitsLossless2', 'klass' => 'Lossless'},
         37 => {'name' => 'DefineEditText'},
         # 38 missing
         39 => {'name' => 'DefineSprite', 'klass' => 'Sprite'},

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 our ( $VERSION );
-$VERSION = '0.03_02';
+$VERSION = '0.04_01';
 
 use base 'IO::SWF';
 use IO::SWF::Bit;
@@ -30,10 +30,10 @@ IO::SWF::Editor - Parse and edit SWF binary by Perl.
 
 =head1 VERSION
 
-This document references version 0.03_01 of IO::SWF::Editor, released
-to CPAN on July 26, 2011.
+This document references version 0.04_01 of IO::SWF::Editor, released
+to CPAN on Aug 10, 2011.
 
-head1 DESCRIPTION
+=head1 DESCRIPTION
 
 IO::SWF::Editor provides to parse and edit SWF binary.
 

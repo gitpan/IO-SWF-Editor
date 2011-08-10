@@ -8,6 +8,7 @@ use base 'IO::SWF::Tag::Base';
 use IO::SWF::Bit;
 use IO::SWF::Tag;
 use IO::SWF::Type::CXFORM;
+use IO::SWF::Type::String;
 use IO::SWF::Type::CXFORMWITHALPHA;
 use IO::SWF::Type::CLIPACTIONS;
 

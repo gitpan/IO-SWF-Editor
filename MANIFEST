@@ -20,6 +20,8 @@ lib/IO/SWF/Tag.pm
 lib/IO/SWF/Tag/Action.pm
 lib/IO/SWF/Tag/Base.pm
 lib/IO/SWF/Tag/BGColor.pm
+lib/IO/SWF/Tag/Jpeg.pm
+lib/IO/SWF/Tag/Lossless.pm
 lib/IO/SWF/Tag/Place.pm
 lib/IO/SWF/Tag/Shape.pm
 lib/IO/SWF/Tag/Sprite.pm
@@ -53,5 +55,4 @@ sample/swfreplaceactionstring.pl
 sample/swfreplacebitmap.pl
 sample/swfsetactionvariables.pl
 sample/swfsetbgcolor.pl
-META.yml                                 Module YAML meta-data (added by MakeMaker)
-META.json                                Module JSON meta-data (added by MakeMaker)
+META.yml                                 Module meta-data (added by MakeMaker)

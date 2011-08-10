@@ -120,9 +120,9 @@ sub getDataUntil {
     my ($self, $delimiter) = @_;
 
     $self->byteAlign();
-    my $pos = index($self->_data, $delimiter, $self->_byte_offset);
+    my $pos = defined $delimiter ? index($self->_data, $delimiter, $self->_byte_offset) : undef;
     my ($length, $delim_len);
-    if ($pos < 0) {
+    if (!defined $pos || $pos < 0) {
         $length = length($self->_data) - $self->_byte_offset;
         $delim_len = 0;
     } else {

@@ -6,6 +6,7 @@ use warnings;
 use base 'IO::SWF::Type';
 
 use IO::SWF::Type::CLIPEVENTFLAGS;
+use IO::SWF::Type::Action;
 
 sub parse {
     my ($reader, $opts_href) = @_;
